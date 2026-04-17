@@ -77,18 +77,20 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun checkPermissions() {
-        val requiredPermissions = arrayOf(
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.CALL_PHONE,
-            Manifest.permission.READ_CONTACTS
-        )
+        val requiredPermissions = mutableListOf<String>()
         
-        val missingPermissions = requiredPermissions.filter {
-            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            requiredPermissions.add(Manifest.permission.READ_PHONE_STATE)
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            requiredPermissions.add(Manifest.permission.CALL_PHONE)
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requiredPermissions.add(Manifest.permission.READ_CONTACTS)
         }
         
-        if (missingPermissions.isNotEmpty()) {
-            showPermissionExplanation(missingPermissions)
+        if (requiredPermissions.isNotEmpty()) {
+            showPermissionExplanation(requiredPermissions)
         } else {
             checkOverlayPermission()
         }
@@ -111,7 +113,9 @@ class MainActivity : AppCompatActivity() {
             .setTitle("Permissions Required")
             .setMessage(message)
             .setPositiveButton("Grant Permissions") { _, _ ->
-                permissionLauncher.launch(permissions.toTypedArray())
+                if (permissions.isNotEmpty()) {
+                    permissionLauncher.launch(permissions.toTypedArray())
+                }
             }
             .setNegativeButton("Cancel") { _, _ ->
                 showPermissionRequiredSnackbar()
