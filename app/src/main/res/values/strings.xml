@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Sober Lock</string>
+    <string name="title_home">Home</string>
+    <string name="title_contacts">Contacts</string>
+    <string name="title_stats">Stats</string>
+    <string name="title_settings">Settings</string>
+    
+    <!-- Home Screen -->
+    <string name="welcome_message">Stay Strong</string>
+    <string name="session_active">Session Active</string>
+    <string name="session_inactive">No Active Session</string>
+    <string name="start_session">Start Session</string>
+    <string name="end_session">End Session</string>
+    
+    <!-- Contact Protection -->
+    <string name="protected_contacts">Protected Contacts</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="contact_added">Contact added to protection</string>
+    <string name="contact_removed">Contact removed from protection</string>
+    
+    <!-- Session Management -->
+    <string name="session_duration">Session Duration</string>
+    <string name="hours">hours</string>
+    <string name="minutes">minutes</string>
+    
+    <!-- Puzzle Challenge -->
+    <string name="solve_puzzle">Solve this puzzle to continue</string>
+    <string name="math_challenge">Math Challenge</string>
+    <string name="word_challenge">Word Puzzle</string>
+    <string name="sequence_challenge">Sequence Challenge</string>
+    
+    <!-- Stats -->
+    <string name="total_sessions">Total Sessions</string>
+    <string name="successful_blocks">Successful Blocks</string>
+    <string name="avg_session_length">Average Session Length</string>
+    
+    <!-- Settings -->
+    <string name="challenge_difficulty">Challenge Difficulty</string>
+    <string name="notifications">Notifications</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="about">About</string>
+    
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="continue_text">Continue</string>
+    <string name="back">Back</string>
+</resources>
