@@ -8,13 +8,9 @@ class PuzzleGenerator {
     private val secureRandom = SecureRandom()
     
     fun generatePuzzle(difficulty: Int = 1): Puzzle {
-        val validatedDifficulty = when {
-            difficulty < 1 -> 1
-            difficulty > 3 -> 3
-            else -> difficulty
-        }
+        val validDifficulty = difficulty.coerceIn(1, 3)
         
-        return when (validatedDifficulty) {
+        return when (validDifficulty) {
             1 -> {
                 val a = secureRandom.nextInt(9) + 1
                 val b = secureRandom.nextInt(9) + 1
