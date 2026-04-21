@@ -2,41 +2,39 @@
 
 echo "=== Waiting for emulator ==="
 adb wait-for-device
+sleep 8
 adb shell input keyevent 82
-sleep 5
+sleep 3
 
 echo "=== Installing APK ==="
 adb install -r app/build/outputs/apk/debug/app-debug.apk
+sleep 2
 
-echo "=== Screenshot: launcher (before launch) ==="
-adb shell screencap -p /sdcard/00_launcher.png
-adb pull /sdcard/00_launcher.png 00_launcher.png
+echo "=== Screenshot: before launch ==="
+adb shell screencap -p /sdcard/00_before.png
+adb pull /sdcard/00_before.png 00_before.png
 
-echo "=== Clearing logcat before launch ==="
+echo "=== Clearing logcat ==="
 adb logcat -c
+sleep 1
 
 echo "=== Launching app ==="
-adb shell am start -n com.ap711.soberlock/.MainActivity
+adb shell am start -W -n com.ap711.soberlock/.MainActivity
 sleep 8
 
-echo "=== Capturing logcat immediately after launch ==="
-adb logcat -d > full_logcat.txt
-grep -E "AndroidRuntime|FATAL EXCEPTION|Process.*soberlock|Error|Exception" full_logcat.txt | tail -40 > crash_logcat.txt || true
-echo "--- Crash logcat ---"
-cat crash_logcat.txt
+echo "=== Capturing logcat ==="
+adb logcat -d > logcat_full.txt
+grep -i "soberlock\|fatal\|exception\|error" logcat_full.txt | tail -50 > logcat_filtered.txt || true
+cat logcat_filtered.txt
 
-echo "=== Screenshot: after launch attempt ==="
+echo "=== Screenshot: after launch ==="
 adb shell screencap -p /sdcard/01_after_launch.png
 adb pull /sdcard/01_after_launch.png 01_after_launch.png
 
-echo "=== Window focus check ==="
-adb shell dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp' > focus.txt
-cat focus.txt
+echo "=== Process check ==="
+adb shell ps -A | grep soberlock || echo "NO APP PROCESS - CRASHED"
 
-echo "=== Package activity check ==="
-adb shell dumpsys activity activities | grep -E "soberlock|Resumed|Paused" | head -10
+echo "=== Window state ==="
+adb shell dumpsys window displays | grep -E "mCurrentFocus|soberlock" | head -5 || true
 
-echo "=== Check if app process is running ==="
-adb shell ps | grep soberlock || echo "APP PROCESS NOT FOUND - DEFINITELY CRASHED"
-
-echo "=== All diagnostics captured ==="
+echo "=== Done - check artifacts for screenshots and logcat ==="

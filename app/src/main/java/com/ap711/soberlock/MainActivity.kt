@@ -1,17 +1,24 @@
 package com.ap711.soberlock
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
-import com.ap711.soberlock.databinding.ActivityMainBinding
-import com.google.android.gms.ads.MobileAds
+import android.widget.TextView
+import android.widget.LinearLayout
+import android.graphics.Color
+import android.view.Gravity
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-
+class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        MobileAds.initialize(this) {}
+        val tv = TextView(this)
+        tv.text = "Sober Lock"
+        tv.setTextColor(Color.WHITE)
+        tv.textSize = 32f
+        tv.gravity = Gravity.CENTER
+        val layout = LinearLayout(this)
+        layout.gravity = Gravity.CENTER
+        layout.setBackgroundColor(Color.parseColor("#1A237E"))
+        layout.addView(tv)
+        setContentView(layout)
     }
 }
